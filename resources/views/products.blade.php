@@ -9,7 +9,7 @@
 
                     <a href="{{ route('product.show', $product->languages->sk->slug) }}">
                         @foreach ($product->images as $images)
-                            <img src="{{ $images->image->original }}" class="card-img-top" alt="{{ $images->alt }}">
+                            <img src="{{ $images->image->thumb }}" class="card-img-top" alt="{{ $images->alt }}">
                             @break
                         @endforeach
                     </a>
@@ -23,7 +23,7 @@
                             <p class="card-text">{{ $product->languages->sk->name }}</p>
                         </a>
 
-                        @foreach ($availabilities->data as $available)
+                        {{-- @foreach ($availabilities->data as $available)
                             @if ( property_exists($available, 'combinations') )
                                 @if ($product->id == $available->id)
                                     @foreach ($available->combinations as $combination)
@@ -31,12 +31,25 @@
                                         @break
                                     @endforeach
                                 @endif
-                            @else
-                                @if ($product->id == $available->id)
-                                    <small class="text-center">{!! number_format($available->price, 2, ",", "&nbsp;") !!} &euro;</small>
-                                @endif
                             @endif
-                        @endforeach
+                        @endforeach --}}
+                        @php
+                            foreach ( $availabilities->data as $available ) {
+                                if ( property_exists( $available, 'combinations' ) ) {
+                                    if ( $product->id == $available->id ) {
+                                        foreach ( $available->combinations as $combination ) {
+                                            echo '<small class="text-center">' . number_format($combination->price, 2, ",", "&nbsp;") . '&euro;</small>';
+                                            break;
+                                        }
+                                    }
+                                } else {
+                                    if ( $product->id == $available->id ) {
+                                        echo '<small class="text-center">' . number_format($product->price, 2, ",", "&nbsp;") . '&euro;</small>';
+                                    }
+                                }
+                            }
+                        @endphp
+
 
                     </div>
 

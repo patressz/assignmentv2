@@ -7,13 +7,13 @@
             @if ($product->languages->sk->slug == $slug)
                 <div class="col-md-6 mt-5">
                     @foreach ($product->images as $images)
-                        <img class="rounded img-fluid img-thumbnail product-image" src="{{ $images->image->original }}" alt="{{ $images->alt }}">
+                        <img class="rounded img-fluid img-thumbnail product-image" src="{{ $images->image->medium }}" alt="{{ $images->alt }}">
                         @break
                     @endforeach
                     <div class="row mt-3">
                         @foreach ($product->images as $images)
                             <div class="col-md-2">
-                                <img class="rounded img-fluid img-thumbnail product-thumbnail product-images" src="{{ $images->image->original }}" alt="{{ $images->alt }}">
+                                <img class="rounded img-fluid img-thumbnail product-thumbnail product-images" src="{{ $images->image->medium }}" alt="{{ $images->alt }}">
                             </div>
                         @endforeach
                     </div>
@@ -35,7 +35,7 @@
                                         @continue
                                     @endif
                                     <a href="{{ route('product.show', $product_->languages->sk->slug) }}">
-                                        <img class="rounded img-fluid img-thumbnail product-thumbnail" src="{{ $variant->image->original }}" alt="{{ $variant->alt }}">
+                                        <img class="rounded img-fluid img-thumbnail product-thumbnail" src="{{ $variant->image->thumb }}" alt="{{ $variant->alt }}">
                                     </a>
                                     @break
                                 @endforeach

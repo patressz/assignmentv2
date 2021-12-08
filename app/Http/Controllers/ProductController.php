@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ProductCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -10,10 +9,10 @@ class ProductController extends Controller
 {
     public function index()
     {
-        if ( Cache::has('products') && Cache::has('availabilities') ) {
-            $products = Cache::get('products');
-            $availabilities = Cache::get('availabilities');
-        } else {
+        $products = Cache::get('products');
+        $availabilities = Cache::get('availabilities');
+
+        if ( !$products || !$availabilities ) {
             return $this->cache_data();
         }
 
@@ -53,7 +52,7 @@ class ProductController extends Controller
 
     public function clear_cache()
     {
-        Cache::forget('products', 'availabilities');
+        Cache::flush();
 
         return $this->cache_data();
     }
