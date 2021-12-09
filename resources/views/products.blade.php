@@ -23,16 +23,6 @@
                             <p class="card-text">{{ $product->languages->sk->name }}</p>
                         </a>
 
-                        {{-- @foreach ($availabilities->data as $available)
-                            @if ( property_exists($available, 'combinations') )
-                                @if ($product->id == $available->id)
-                                    @foreach ($available->combinations as $combination)
-                                        <small class="text-center">{!! number_format($combination->price, 2, ",", "&nbsp;") !!} &euro;</small>
-                                        @break
-                                    @endforeach
-                                @endif
-                            @endif
-                        @endforeach --}}
                         @php
                             foreach ( $availabilities->data as $available ) {
                                 if ( property_exists( $available, 'combinations' ) ) {

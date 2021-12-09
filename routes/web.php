@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [ProductController::class, 'index'])->name('index');
-Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
+Route::get('product/{slug}', [ProductController::class, 'show'])->name('product.show');
+Route::post('getAvailabilityAndPrice', [ProductController::class, 'get_availability_and_price']);
 Route::get('cache-data', [ProductController::class, 'cache_data'])->name('cache.data');
 Route::get('clear-cache', [ProductController::class, 'clear_cache'])->name('clear.cache');

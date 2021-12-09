@@ -19,7 +19,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 mt-5">
+                <div class="col-md-6 mt-5 product" data-product_id="{{ $product->id }}">
                     <h3>{{ $product->languages->sk->name }}</h3>
                     {!! $product->languages->sk->short_description !!}
 
@@ -47,8 +47,8 @@
                             @if ( property_exists($available, 'combinations') )
                                 @if ($product->id == $available->id)
                                     @foreach ($available->combinations as $combination)
-                                        <p class="my-3 h2">{!! number_format($combination->price, 2, ",", "&nbsp;") !!} &euro;</p>
-                                        <p>Dostupnosť: {{ $combination->available }}</p>
+                                        <p class="my-3 h2 price">{!! number_format($combination->price, 2, ",", "&nbsp;") !!} &euro;</p>
+                                        <p>Dostupnosť: <span class="availability">{{ $combination->available }}</span></p>
                                         @break
                                     @endforeach
                                 @endif
@@ -63,10 +63,11 @@
                     @if ( property_exists($product, 'options') )
                         @foreach ($product->options as $option)
                             @if ($option->languages->sk->name == "Farby")
+                                <input type="hidden" name="option[{{ $option->id }}]" class="choose-option" value="{{ $product->variation_option_id }}">
                                 @continue
                             @endif
                             <p>{{ $option->languages->sk->name }}</p>
-                            <select name="option[{{ $option->id }}]" id="choose-size" class="form-select form-select-sm my-3">
+                            <select name="option[{{ $option->id }}]" class="form-select form-select-sm my-3 choose-option choose-option-main">
                                 @foreach ($option->items as $option)
                                         <option value="{{ $option->id }}">{{ $option->languages->sk->name }}</option>
                                 @endforeach

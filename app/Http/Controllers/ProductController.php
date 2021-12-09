@@ -12,6 +12,8 @@ class ProductController extends Controller
         $products = Cache::get('products');
         $availabilities = Cache::get('availabilities');
 
+
+
         if ( !$products || !$availabilities ) {
             return $this->cache_data();
         }
@@ -55,5 +57,16 @@ class ProductController extends Controller
         Cache::flush();
 
         return $this->cache_data();
+    }
+
+    public function get_availability_and_price()
+    {
+        $availabilities = Cache::get('availabilities');
+
+        if ( !$availabilities ) {
+            return $this->cache_data();
+        }
+
+        return $availabilities;
     }
 }
